@@ -4,11 +4,19 @@
 #include <U8g2lib.h>
 #include "assets.h"
 
+/// @brief Function pointer type for interruption check
+typedef bool (*CheckInterruptPoll)();
+
 /// @brief Plays an animated GIF on the display
 /// @param display Pointer to the U8G2 display object
 /// @param gif Pointer to the AnimatedGIF structure
 /// @param loopCount Number of times to loop the animation
-void playGIF(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, const AnimatedGIF* gif, uint16_t loopCount = 1);
+/// @param shouldStop Optional function pointer to check for interruption
+void playGIF(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, 
+             const AnimatedGIF* gif, 
+             uint16_t loopCount, 
+             CheckInterruptPoll shouldStop = nullptr); 
+
 
 
 #endif // _HELPERS_H

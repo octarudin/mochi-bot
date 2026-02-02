@@ -1,12 +1,12 @@
 #ifndef _ASSETS_ANGRY_ANGRY_FRAME_H_
 #define _ASSETS_ANGRY_ANGRY_FRAME_H_
 
-#include "../utils.h"
+#include "../assets/utils.h"
 
 // Angry Face frames
-#include "frame00_246.h"
+#include "frame01_22.h"
 
-#define ANGRY_FRAME_COUNT 247
+#define ANGRY_FRAME_COUNT 22
 
 // Angry Face animation data
 extern const uint16_t ANGRY_DELAYS[ANGRY_FRAME_COUNT];
