@@ -1,7 +1,7 @@
 #ifndef _ASSETS_NBA_LOGO_FRAME_H_
 #define _ASSETS_NBA_LOGO_FRAME_H_
 
-#include "../utils.h"
+#include "../assets/utils.h"
 #include "frames/frame00_24.h"
 #include "frames/frame25_39.h"
 #include "frames/frame40_54.h"
