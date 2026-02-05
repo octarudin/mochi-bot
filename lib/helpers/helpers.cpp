@@ -1,13 +1,13 @@
 #include "helpers.h"
 
 /// @brief Plays an animated GIF on the display
-void playGIF(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, const AnimatedGIF* gif, uint16_t loopCount, CheckInterruptPoll shouldStop) 
+void playGIF(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, const AnimatedGIF* gif, uint16_t loopCount, volatile bool touchTriggered) 
 {
   for (uint16_t loop = 0; loop < loopCount; loop++) {
     for (uint8_t frame = 0; frame < gif->frame_count; frame++) {
       
       // check for interruption
-      if (shouldStop != nullptr && shouldStop()) return;
+      if (touchTriggered) return;
 
       display->clearBuffer();
       // Draw the frame pixel by pixel
@@ -25,7 +25,7 @@ void playGIF(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, const AnimatedGIF* gif
       // Wait for the frame's delay duration, checking for interruption
       unsigned long startMs = millis();
       while (millis() - startMs < gif->delays[frame]) {
-        if (shouldStop != nullptr && shouldStop()) return; 
+        if (touchTriggered) return;
         yield(); 
       }
     }

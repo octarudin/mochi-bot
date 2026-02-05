@@ -2,6 +2,7 @@
 
 Adafruit_MPU6050* mpu = nullptr;
 volatile bool shakeTriggered = false;
+volatile bool shakeDetected = false;
 
 // State machine variables for shake detection
 typedef enum {
@@ -30,6 +31,9 @@ bool initVibrationSensor(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display)
 
   mpu->setAccelerometerRange(MPU6050_RANGE_8_G);
   mpu->setFilterBandwidth(MPU6050_BAND_21_HZ);
+
+  pinMode(5, INPUT_PULLUP); // Pin interrupt MPU6050
+  attachInterrupt(digitalPinToInterrupt(5), handleShakeISR, FALLING);
   
   shakeState = SHAKE_IDLE;
   lastShakeTime = 0;
@@ -135,4 +139,9 @@ void updateDisplay(U8G2_SH1106_128X64_NONAME_F_HW_I2C* display, float magnitude,
   }
   
   display->sendBuffer();
+}
+
+// ISR Handler untuk Guncangan (GPIO 5)
+void IRAM_ATTR handleShakeISR() {
+  shakeDetected = true;
 }
